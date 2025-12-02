@@ -57,18 +57,25 @@ workflow {
         params.monochrome_logs,
         args,
         params.outdir,
-        params.input,
         params.help,
         params.help_full,
-        params.show_hidden
+        params.show_hidden,
+        params.primary,
+        params.alternative,
+        params.genomescope_model,
+        params.coverage,
+        params.cutoffs
     )
 
     //
     // WORKFLOW: Run main workflow
     //
     SANGERTOL_PURGING (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.assembly,
+        PIPELINE_INITIALISATION.out.reads,
+        params.mapping_reads_per_chunk
     )
+
     //
     // SUBWORKFLOW: Run completion tasks
     //

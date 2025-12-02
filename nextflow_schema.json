@@ -10,24 +10,48 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["outdir", "primary", "busco_lineage", "mapping_reads_per_chunk"],
             "properties": {
-                "input": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "schema": "assets/schema_input.json",
-                    "mimetype": "text/csv",
-                    "pattern": "^\\S+\\.csv$",
-                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
-                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
-                    "fa_icon": "fas fa-file-csv"
-                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
+                },
+                "primary": {
+                    "type": "string",
+                    "description": "Path to the assembly to be purged, in FASTA format."
+                },
+                "alternate": {
+                    "type": "string",
+                    "description": "Optional path to an alternative assembly to concatenate purged haplotigs to and for use in assembly QC."
+                },
+                "genomescope_model": {
+                    "type": "string",
+                    "description": "Path to a Genomescope 2.0 model txt file to estimate the coverage of the genome from the reads. Incompatible with coverage and cutoffs params."
+                },
+                "coverage": {
+                    "type": "integer",
+                    "description": "1N (monoploid) coverage of the assembly. Incompatible with genomescope_model and cutoffs params."
+                },
+                "cutoffs": {
+                    "type": "string",
+                    "description": "User-defined purging cutoffs, defined as a comma-separated string of three numbers, e.g. 5,25,64.",
+                    "pattern": "\\d+,\\d+,\\d+"
+                },
+                "mapping_reads_per_chunk": {
+                    "type": "integer",
+                    "default": 1000000,
+                    "description": "Number of reads to map to the assembly per chunk."
+                },
+                "busco_lineage": {
+                    "type": "string",
+                    "default": "auto_euk",
+                    "description": "BUSCO lineage to use to evaluate genome completeness. Defaults to \"auto-euk\""
+                },
+                "busco_lineage_directory": {
+                    "type": "string",
+                    "description": "Path to a directory containing pre-downloaded BUSCO lineages. If passed, BUSCO will be run in offline mode."
                 },
                 "email": {
                     "type": "string",

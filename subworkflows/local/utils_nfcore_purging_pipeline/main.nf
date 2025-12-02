@@ -32,10 +32,16 @@ workflow PIPELINE_INITIALISATION {
     monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
-    input             //  string: Path to input samplesheet
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
+    primary_fasta     // string: path to the primary assembly FASTA
+    alt_fasta         // string: path to the primary assembly FASTA
+    reads             // string: path to reads
+    fastk_ktab        // string: path to fastk ktab
+    genomescope_model // string: path to the genomescope model text
+    coverage          // int: coverage
+    cutoffs           // string: manual purging cutoffs
 
     main:
 
@@ -54,6 +60,26 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+    before_text = """
+-\033[2m----------------------------------------------------\033[0m-
+\033[0;34m   _____                               \033[0;32m _______   \033[0;31m _\033[0m
+\033[0;34m  / ____|                              \033[0;32m|__   __|  \033[0;31m| |\033[0m
+\033[0;34m | (___   __ _ _ __   __ _  ___ _ __ \033[0m ___ \033[0;32m| |\033[0;33m ___ \033[0;31m| |\033[0m
+\033[0;34m  \\___ \\ / _` | '_ \\ / _` |/ _ \\ '__|\033[0m|___|\033[0;32m| |\033[0;33m/ _ \\\033[0;31m| |\033[0m
+\033[0;34m  ____) | (_| | | | | (_| |  __/ |        \033[0;32m| |\033[0;33m (_) \033[0;31m| |____\033[0m
+\033[0;34m |_____/ \\__,_|_| |_|\\__, |\\___|_|        \033[0;32m|_|\033[0;33m\\___/\033[0;31m|______|\033[0m
+\033[0;34m                      __/ |\033[0m
+\033[0;34m                     |___/\033[0m
+\033[0;35m  ${workflow.manifest.name} ${workflow.manifest.version}\033[0m
+-\033[2m----------------------------------------------------\033[0m-
+        """
+    after_text = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { doi -> "    https://doi.org/${doi.trim().replace('https://doi.org/', '')}" }.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/genomeassembly/blob/main/CITATIONS.md
+"""
     command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
 
     UTILS_NFSCHEMA_PLUGIN (
@@ -63,8 +89,8 @@ workflow PIPELINE_INITIALISATION {
         help,
         help_full,
         show_hidden,
-        "",
-        "",
+        before_text,
+        after_text,
         command
     )
 
@@ -76,32 +102,57 @@ workflow PIPELINE_INITIALISATION {
     )
 
     //
-    // Create channel from input file provided through params.input
+    // Logic: Check only one form of coverage declaration provided
     //
+    if([genomescope_model, coverage, cutoffs].findAll().size() > 1) {
+        error(
+            "ERROR: More than one coverage parameter provided!" +
+            "Please specify only one of genomescope_model, coverage or cutoffs."
+        )
+    }
+    if([genomescope_model, coverage, cutoffs].findAll().size() == 0) {
+        error(
+            "ERROR: No coverage parameter provided!" +
+            "Please specify one of genomescope_model, coverage or cutoffs."
+        )
+    }
 
-    channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
-        .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
+    //
+    // Logic: create channel for input assemblies
+    //
+    ch_assembly_fasta = channel.of([
+        [id: "assembly", cutoffs: cutoffs_map],
+        file(primary_fasta),
+        file(alt_fasta).exists() ? file(alt_fasta) : []
+    ])
+
+    //
+    // Logic: Create channel containing all reads
+    //
+    ch_reads = channel.fromPath(reads)
+        .collect()
+        .map { reads ->
+            [ [id: "assembly", cutoffs: cutoffs_map], reads ]
         }
-        .groupTuple()
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
+
+    //
+    // Logic: Find all FastK ktab and hist listFiles
+    //
+    ch_fastk = channel.of(file(fastk_ktab))
+        .map { ktab ->
+            def fastk_files = ktab.parent.listFiles().findAll { file -> file.name =~ ktab.baseName }
+            def fk_hist = file(fastk_files.find { file -> file =~ /\.hist$/ })
+            def fk_ktab = fastk_files.findAll { file -> file =~ /\.ktab(\.\d+)?$/ }.collect { fk -> file(fk) }
+
+            [ [id: "assembly", cutoffs: cutoffs_map], fk_hist, fk_ktab ]
         }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
-        }
-        .set { ch_samplesheet }
+        .filter { meta, hist, ktab -> ktab.size() > 0 }
 
     emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
+    assembly = ch_assembly_fasta
+    reads    = ch_reads
+    fastk    = ch_fastk
+    versions = ch_versions
 }
 
 /*
