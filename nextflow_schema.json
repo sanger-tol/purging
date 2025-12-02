@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["outdir", "primary", "busco_lineage", "mapping_reads_per_chunk"],
+            "required": ["outdir", "primary", "mapping_reads_per_chunk", "busco_lineage"],
             "properties": {
                 "outdir": {
                     "type": "string",
@@ -38,6 +38,10 @@
                     "type": "string",
                     "description": "User-defined purging cutoffs, defined as a comma-separated string of three numbers, e.g. 5,25,64.",
                     "pattern": "\\d+,\\d+,\\d+"
+                },
+                "purge_middle": {
+                    "type": "boolean",
+                    "description": "Allow purging from within contigs."
                 },
                 "mapping_reads_per_chunk": {
                     "type": "integer",

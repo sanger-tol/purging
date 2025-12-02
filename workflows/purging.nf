@@ -116,7 +116,17 @@ workflow PURGING {
 
 
     emit:
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
+    primary            = ch_purged_primary
+    alternative        = ch_concat_alt
+    haplotigs          = ch_purged_haplotigs
+    pbstat_hist        = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_hist
+    pbcstat_basecov    = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_basecov
+    calcuts_cutoffs    = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_calcuts_cutoffs
+    calcuts_log        = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_calcuts_log
+    purgedups_histplot = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_histplot
+    purgedups_bed      = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_bed
+    purgedups_log      = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_log
+    versions           = ch_versions // channel: [ path(versions.yml) ]
 
 }
 
