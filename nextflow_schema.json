@@ -10,14 +10,8 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["outdir", "primary", "mapping_reads_per_chunk", "busco_lineage"],
+            "required": ["primary", "reads"],
             "properties": {
-                "outdir": {
-                    "type": "string",
-                    "format": "directory-path",
-                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-                    "fa_icon": "fas fa-folder-open"
-                },
                 "primary": {
                     "type": "string",
                     "description": "Path to the assembly to be purged, in FASTA format."
@@ -26,36 +20,9 @@
                     "type": "string",
                     "description": "Optional path to an alternative assembly to concatenate purged haplotigs to and for use in assembly QC."
                 },
-                "genomescope_model": {
+                "reads": {
                     "type": "string",
-                    "description": "Path to a Genomescope 2.0 model txt file to estimate the coverage of the genome from the reads. Incompatible with coverage and cutoffs params."
-                },
-                "coverage": {
-                    "type": "integer",
-                    "description": "1N (monoploid) coverage of the assembly. Incompatible with genomescope_model and cutoffs params."
-                },
-                "cutoffs": {
-                    "type": "string",
-                    "description": "User-defined purging cutoffs, defined as a comma-separated string of three numbers, e.g. 5,25,64.",
-                    "pattern": "\\d+,\\d+,\\d+"
-                },
-                "purge_middle": {
-                    "type": "boolean",
-                    "description": "Allow purging from within contigs."
-                },
-                "mapping_reads_per_chunk": {
-                    "type": "integer",
-                    "default": 1000000,
-                    "description": "Number of reads to map to the assembly per chunk."
-                },
-                "busco_lineage": {
-                    "type": "string",
-                    "default": "auto_euk",
-                    "description": "BUSCO lineage to use to evaluate genome completeness. Defaults to \"auto-euk\""
-                },
-                "busco_lineage_directory": {
-                    "type": "string",
-                    "description": "Path to a directory containing pre-downloaded BUSCO lineages. If passed, BUSCO will be run in offline mode."
+                    "description": "Path to a FASTA file containing PacBio HiFi reads, or a glob pattern."
                 },
                 "email": {
                     "type": "string",
@@ -63,6 +30,57 @@
                     "fa_icon": "fas fa-envelope",
                     "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
                     "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                }
+            }
+        },
+        "purging_options": {
+            "title": "Purging options",
+            "type": "object",
+            "description": "Parameters to control the operation of the purging subworkflow.",
+            "default": "",
+            "properties": {
+                "coverage": {
+                    "type": "integer",
+                    "description": "1N (monoploid) coverage of the assembly. Incompatible with genomescope_model and cutoffs params."
+                },
+                "genomescope_model": {
+                    "type": "string",
+                    "description": "Path to a Genomescope 2.0 model txt file to estimate the coverage of the genome from the reads. Incompatible with coverage and cutoffs params."
+                },
+                "cutoffs": {
+                    "type": "string",
+                    "description": "User-defined purging cutoffs, defined as a comma-separated string of three numbers, e.g. 5,25,64.",
+                    "pattern": "\\d+,\\d+,\\d+"
+                },
+                "mapping_reads_per_chunk": {
+                    "type": "integer",
+                    "default": 1000000,
+                    "description": "Number of reads to map to the assembly per chunk."
+                },
+                "purge_middle": {
+                    "type": "boolean",
+                    "description": "Allow purging from within contigs."
+                }
+            },
+            "required": ["mapping_reads_per_chunk"]
+        },
+        "genome_qc_options": {
+            "title": "Genome QC options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "fastk": {
+                    "type": "string",
+                    "description": "Path to the FastK .ktab file counting the kmers in the reads dataset."
+                },
+                "busco_lineage": {
+                    "type": "string",
+                    "description": "BUSCO lineage to use to evaluate genome completeness."
+                },
+                "busco_lineage_directory": {
+                    "type": "string",
+                    "description": "Path to a directory containing pre-downloaded BUSCO lineages. If passed, BUSCO will be run in offline mode."
                 }
             }
         },
@@ -113,6 +131,20 @@
                     "fa_icon": "fas fa-users-cog"
                 }
             }
+        },
+        "publishing_options": {
+            "title": "Publishing options",
+            "type": "object",
+            "description": "Control the publishing of certain output files.",
+            "default": "",
+            "properties": {
+                "publish_reads_paf": {
+                    "type": "boolean",
+                    "description": "Publish the PAF files from mapping the reads to the primary assembly.",
+                    "fa_icon": "fas fa-dna"
+                }
+            },
+            "fa_icon": "fas fa-terminal"
         },
         "generic_options": {
             "title": "Generic options",
@@ -203,7 +235,16 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
+            "$ref": "#/$defs/purging_options"
+        },
+        {
+            "$ref": "#/$defs/genome_qc_options"
+        },
+        {
             "$ref": "#/$defs/institutional_config_options"
+        },
+        {
+            "$ref": "#/$defs/publishing_options"
         },
         {
             "$ref": "#/$defs/generic_options"

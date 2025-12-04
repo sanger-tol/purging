@@ -121,7 +121,7 @@ workflow PIPELINE_INITIALISATION {
     // Logic: create channel for input assemblies
     //
     ch_assembly_fasta = channel.of([
-        [id: "assembly", cutoffs: cutoffs_map],
+        [id: "assembly"],
         file(primary_fasta),
         file(alt_fasta).exists() ? file(alt_fasta) : []
     ])
@@ -132,7 +132,7 @@ workflow PIPELINE_INITIALISATION {
     ch_reads = channel.fromPath(reads)
         .collect()
         .map { reads ->
-            [ [id: "assembly", cutoffs: cutoffs_map], reads ]
+            [ [id: "asm"], reads ]
         }
 
     //
@@ -144,7 +144,7 @@ workflow PIPELINE_INITIALISATION {
             def fk_hist = file(fastk_files.find { file -> file =~ /\.hist$/ })
             def fk_ktab = fastk_files.findAll { file -> file =~ /\.ktab(\.\d+)?$/ }.collect { fk -> file(fk) }
 
-            [ [id: "assembly", cutoffs: cutoffs_map], fk_hist, fk_ktab ]
+            [ [id: "asm"], fk_hist, fk_ktab ]
         }
         .filter { meta, hist, ktab -> ktab.size() > 0 }
 

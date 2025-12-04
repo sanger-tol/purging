@@ -9,7 +9,6 @@ include { methodsDescriptionText          } from '../subworkflows/local/utils_nf
 
 include { TABIX_BGZIP as BGZIP_ASSEMBLIES } from '../modules/nf-core/tabix/bgzip/main'
 
-
 include { FASTA_PURGE_RETAINED_HAPLOTYPE  } from '../subworkflows/sanger-tol/fasta_purge_retained_haplotype/main'
 include { GENOME_STATISTICS               } from '../subworkflows/sanger-tol/genome_statistics/main'
 
@@ -59,7 +58,6 @@ workflow PURGING {
     BGZIP_ASSEMBLIES(ch_assemblies_to_bgzip)
     ch_versions = ch_versions.mix(BGZIP_ASSEMBLIES.out.versions)
 
-
     ch_purged_primary = BGZIP_ASSEMBLIES.out.output
         .filter { meta._hap == "pri" }
         .map { meta, asm -> [ meta - meta.subMap("_hap"), asm ] }
@@ -108,25 +106,36 @@ workflow PURGING {
     softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
             name:  'purging_software_'  + 'versions.yml',
             sort: true,
             newLine: true
         ).set { ch_collated_versions }
 
-
     emit:
-    primary            = ch_purged_primary
-    alternative        = ch_concat_alt
-    haplotigs          = ch_purged_haplotigs
-    pbstat_hist        = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_hist
-    pbcstat_basecov    = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_basecov
-    calcuts_cutoffs    = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_calcuts_cutoffs
-    calcuts_log        = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_calcuts_log
-    purgedups_histplot = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_histplot
-    purgedups_bed      = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_bed
-    purgedups_log      = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_log
-    versions           = ch_versions // channel: [ path(versions.yml) ]
+    primary                    = ch_purged_primary
+    alternative                = ch_concat_alt
+    haplotigs                  = ch_purged_haplotigs
+    purgedups_splitfa_self_paf = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_splitfa_self_paf
+    purgedups_pbcstat_hist     = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_hist
+    purgedups_pbcstat_basecov  = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_basecov
+    purgedups_calcuts_cutoffs  = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_calcuts_cutoffs
+    purgedups_calcuts_log      = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_calcuts_log
+    purgedups_histplot         = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_histplot
+    purgedups_bed              = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_bed
+    purgedups_log              = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_log
+    primary_reads_paf          = FASTA_PURGE_RETAINED_HAPLOTYPE.out.primary_reads_paf
+    asmstats                   = GENOME_STATISTICS.out.asmstats
+    gfastats                   = GENOME_STATISTICS.out.gfastats
+    busco_summary_txt          = GENOME_STATISTICS.out.busco_summary_txt
+    busco_summary_json         = GENOME_STATISTICS.out.busco_summary_json
+    busco_batch_summary        = GENOME_STATISTICS.out.busco_batch_summary
+    busco_log                  = GENOME_STATISTICS.out.busco_log
+    busco_directory            = GENOME_STATISTICS.out.busco_directory
+    merqury_qv                 = GENOME_STATISTICS.out.merqury_qv
+    merqury_completeness       = GENOME_STATISTICS.out.merqury_completeness
+    merqury_phased_stats       = GENOME_STATISTICS.out.merqury_phased_stats
+    merqury_images             = GENOME_STATISTICS.out.merqury_images
+    versions                   = ch_collated_versions
 
 }
 
