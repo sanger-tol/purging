@@ -4,6 +4,8 @@ nextflow_pipeline {
     script "../main.nf"
     tag "pipeline"
 
+    profile "test"
+
     test("-profile test") {
 
         when {
@@ -18,10 +20,10 @@ nextflow_pipeline {
             // stable_path: All files in ${params.outdir}/ with stable content
             def stable_path = getAllFilesFromDir(params.outdir, ignoreFile: 'tests/.nftignore')
             assertAll(
-                { assert workflow.success},
+                { assert workflow.success },
                 { assert snapshot(
                     // pipeline versions.yml file for multiqc from which Nextflow version is removed because we test pipelines on multiple Nextflow versions
-                    removeNextflowVersion("$outputDir/pipeline_info/purging_software_mqc_versions.yml"),
+                    removeNextflowVersion("$outputDir/pipeline_info/purging_software_versions.yml"),
                     // All stable path name, with a relative path
                     stable_name,
                     // All files with stable contents

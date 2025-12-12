@@ -6,18 +6,47 @@ This document describes the output produced by the pipeline.
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
-<!-- TODO nf-core: Write this documentation describing your workflow's output -->
-
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-
+- [Purging](#purging) - Purging of haplotypic duplication from an assembly
+- [Genome statistics](#genome-statistics) - Genome QC steps following purging
 - [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
+### Purging
 
+<details markdown="1">
+<summary>Output files</summary>
 
+- `asm.purged.fa.gz` - the final primary assembly after purging
+- `asm.htigs.all.fa.gz` - if an alternate assembly was provided, the alternate assembly and the purged haplotigs. Otherwise, just the purged haplotigs.
+- `coverage/`
+  - `asm.cutoffs` - Cutoffs used by purge_dups for defining haplotigs
+  - `asm.calcuts.log` - Log file from purgedups/calcuts
+  - `asm.PB.base.cov` - Base-level coverage of each contig in the primary assembly
+  - `asm.PB.base.stat` - Coverage histogram
+  - `*.paf.gz` - if `params.publish_reads_paf` enabled, the PAF alignments of reads to the primary assembly
+- `split_aln/`
+  - `asm.self_aln.paf` - Self alignment file of split primary assembly
+  - `asm.self_aln.split.fasta.gz` - Split primary assembly
+- `purge_dups/`
+  - `asm.dups.bed` - bed file describing duplications
+  - `asm.purge_dups.log` - log file describing purging
+- `seqs/asm.hap.fa.gz` - the haplotigs purged from the assembly.
 
+</details>
+
+### Genome statistics
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `*.stats` - summary statistics for each output assembly, produced by asmstats
+- `*.assembly_summary` - summary statistics for each output assembly, produced by gfastats
+- `asm.merquryfk` - output of MerquryFK, describing QV, kmer completeness, and phasing
+- `asm.busco.{busco_lineage}` - output of BUSCO describing genome completeness
+</details>
 
 ### Pipeline information
 

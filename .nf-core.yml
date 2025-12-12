@@ -15,9 +15,12 @@ lint:
     - .github/PULL_REQUEST_TEMPLATE.md
     - assets/email_template.txt
     - docs/README.md
+    - LICENSE
+    - .gitattributes
   nextflow_config:
     - manifest.name
     - manifest.homePage
+    - params.input
   multiqc_config: false
   files_exist:
     - assets/multiqc_config.yml
@@ -36,7 +39,7 @@ template:
   name: purging
   description: A pipeline for purging retained haplotypic duplication from a genomea
     assembly.
-  author: '@prototaxites'
+  author: "@prototaxites"
   version: 1.0.0dev
   force: true
   outdir: .
