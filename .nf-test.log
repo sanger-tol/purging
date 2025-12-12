@@ -1,0 +1,18 @@
+Dec-12 15:59:17.634 [main] INFO  com.askimed.nf.test.App - nf-test 0.9.3
+Dec-12 15:59:17.641 [main] INFO  com.askimed.nf.test.App - Arguments: [test, tests/minimal.nf.test, --profile=+docker, --verbose, --update-snapshot]
+Dec-12 15:59:18.161 [main] INFO  com.askimed.nf.test.App - Nextflow Version: 25.10.0
+Dec-12 15:59:18.161 [main] INFO  com.askimed.nf.test.commands.RunTestsCommand - Load config from file /Users/jd42/Projects/purging/nf-test.config...
+Dec-12 15:59:18.397 [main] INFO  com.askimed.nf.test.lang.dependencies.DependencyResolver - Loaded 46 files from directory /Users/jd42/Projects/purging in 0.034 sec
+Dec-12 15:59:18.397 [main] INFO  com.askimed.nf.test.lang.dependencies.DependencyResolver - Found 1 files containing tests.
+Dec-12 15:59:18.397 [main] DEBUG com.askimed.nf.test.lang.dependencies.DependencyResolver - Found files: [/Users/jd42/Projects/purging/tests/minimal.nf.test]
+Dec-12 15:59:18.455 [main] INFO  com.askimed.nf.test.commands.RunTestsCommand - Found 1 tests to execute.
+Dec-12 15:59:18.455 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Started test plan
+Dec-12 15:59:18.455 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Running testsuite 'Test pipeline' from file '/Users/jd42/Projects/purging/tests/minimal.nf.test'.
+Dec-12 15:59:18.455 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Run test 'da996db4: -profile test'. type: com.askimed.nf.test.lang.pipeline.PipelineTest
+Dec-12 15:59:59.715 [main] DEBUG com.askimed.nf.test.lang.extensions.SnapshotFile - Init new snapshot file '/Users/jd42/Projects/purging/tests/minimal.nf.test.snap'
+Dec-12 15:59:59.716 [main] DEBUG com.askimed.nf.test.lang.extensions.Snapshot - Snapshot '-profile test' not found.
+Dec-12 15:59:59.716 [main] DEBUG com.askimed.nf.test.lang.extensions.SnapshotFile - Created snapshot '-profile test'
+Dec-12 15:59:59.756 [main] DEBUG com.askimed.nf.test.lang.extensions.SnapshotFile - Wrote snapshots to file '/Users/jd42/Projects/purging/tests/minimal.nf.test.snap'
+Dec-12 15:59:59.757 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Test 'da996db4: -profile test' finished. status: PASSED
+Dec-12 15:59:59.757 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Testsuite 'Test pipeline' finished. snapshot file: true, skipped tests: false, failed tests: false
+Dec-12 15:59:59.758 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Executed 1 tests. 0 tests failed. Done!

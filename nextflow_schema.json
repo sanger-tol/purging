@@ -24,6 +24,13 @@
                     "type": "string",
                     "description": "Path to a FASTA file containing PacBio HiFi reads, or a glob pattern."
                 },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "fa_icon": "fas fa-folder-open",
+                    "help_text": "Specify the path to the output directory where the results will be saved."
+                },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
@@ -206,7 +213,7 @@
                     "type": "string",
                     "fa_icon": "far fa-check-circle",
                     "description": "Base URL or local path to location of pipeline test dataset files",
-                    "default": "https://raw.githubusercontent.com/nf-core/test-datasets/",
+                    "default": "https://tolit.cog.sanger.ac.uk/test-data/",
                     "hidden": true
                 },
                 "trace_report_suffix": {

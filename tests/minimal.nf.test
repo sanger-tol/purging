@@ -4,6 +4,8 @@ nextflow_pipeline {
     script "../main.nf"
     tag "pipeline"
 
+    profile "test_minimal"
+
     test("-profile test") {
 
         when {

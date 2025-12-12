@@ -52,22 +52,22 @@ workflow PURGING {
             ]
         }
         .mix(
-            FASTA_PURGE_RETAINED_HAPLOTYPE.out.haplotigs.map { meta, tigs -> [meta + [_hap: "tigs"], tigs ] }
+            FASTA_PURGE_RETAINED_HAPLOTYPE.out.purged_haplotigs.map { meta, tigs -> [meta + [_hap: "tigs"], tigs ] }
         )
 
     BGZIP_ASSEMBLIES(ch_assemblies_to_bgzip)
     ch_versions = ch_versions.mix(BGZIP_ASSEMBLIES.out.versions)
 
     ch_purged_primary = BGZIP_ASSEMBLIES.out.output
-        .filter { meta._hap == "pri" }
+        .filter { meta, asm -> meta._hap == "pri" }
         .map { meta, asm -> [ meta - meta.subMap("_hap"), asm ] }
 
     ch_concat_alt = BGZIP_ASSEMBLIES.out.output
-        .filter { meta._hap == "alt" }
+        .filter { meta, asm -> meta._hap == "alt" }
         .map { meta, asm -> [ meta - meta.subMap("_hap"), asm ] }
 
     ch_purged_haplotigs = BGZIP_ASSEMBLIES.out.output
-        .filter { meta._hap == "tigs" }
+        .filter { meta, asm -> meta._hap == "tigs" }
         .map { meta, asm -> [ meta - meta.subMap("_hap"), asm ] }
 
     //
@@ -76,9 +76,9 @@ workflow PURGING {
     GENOME_STATISTICS(
         ch_purged_primary.join(ch_concat_alt, by: 0),
         ch_fastk,
-        [[:], []],
-        [[:], []],
-        val_busco_lineage,
+        channel.empty(),
+        channel.empty(),
+        val_busco_lineage ?: channel.empty(),
         val_busco_lineage_directory
     )
     ch_versions = ch_versions.mix(GENOME_STATISTICS.out.versions)
@@ -113,8 +113,9 @@ workflow PURGING {
 
     emit:
     primary                    = ch_purged_primary
-    alternative                = ch_concat_alt
+    alternate                  = ch_concat_alt
     haplotigs                  = ch_purged_haplotigs
+    purgedups_splitfa          = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_splitfa
     purgedups_splitfa_self_paf = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_splitfa_self_paf
     purgedups_pbcstat_hist     = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_hist
     purgedups_pbcstat_basecov  = FASTA_PURGE_RETAINED_HAPLOTYPE.out.purgedups_pbcstat_basecov

@@ -121,9 +121,9 @@ workflow PIPELINE_INITIALISATION {
     // Logic: create channel for input assemblies
     //
     ch_assembly_fasta = channel.of([
-        [id: "assembly"],
-        file(primary_fasta),
-        file(alt_fasta).exists() ? file(alt_fasta) : []
+        [id: "asm"],
+        file(primary_fasta, checkIfExists: true),
+        alt_fasta ? file(alt_fasta, checkIfExists: true) : []
     ])
 
     //
@@ -138,15 +138,19 @@ workflow PIPELINE_INITIALISATION {
     //
     // Logic: Find all FastK ktab and hist listFiles
     //
-    ch_fastk = channel.of(file(fastk_ktab))
-        .map { ktab ->
-            def fastk_files = ktab.parent.listFiles().findAll { file -> file.name =~ ktab.baseName }
-            def fk_hist = file(fastk_files.find { file -> file =~ /\.hist$/ })
-            def fk_ktab = fastk_files.findAll { file -> file =~ /\.ktab(\.\d+)?$/ }.collect { fk -> file(fk) }
+    ch_fastk = channel.empty()
 
-            [ [id: "asm"], fk_hist, fk_ktab ]
-        }
-        .filter { meta, hist, ktab -> ktab.size() > 0 }
+    if(fastk_ktab) {
+        ch_fastk = channel.of(file(fastk_ktab))
+            .map { ktab ->
+                def fastk_files = ktab.parent.listFiles().findAll { file -> file.name =~ ktab.baseName }
+                def fk_hist = file(fastk_files.find { file -> file =~ /\.hist$/ })
+                def fk_ktab = fastk_files.findAll { file -> file =~ /\.ktab(\.\d+)?$/ }.collect { fk -> file(fk) }
+
+                [ [id: "asm"], fk_hist, fk_ktab ]
+            }
+            .filter { meta, hist, ktab -> ktab.size() > 0 }
+    }
 
     emit:
     assembly = ch_assembly_fasta

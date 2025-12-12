@@ -48,6 +48,33 @@ workflow SANGERTOL_PURGING {
         val_busco_lineage,
         val_busco_lineage_directory
     )
+
+    emit:
+    primary                    = PURGING.out.primary
+    alternate                  = PURGING.out.alternate
+    haplotigs                  = PURGING.out.haplotigs
+    purgedups_splitfa          = PURGING.out.purgedups_splitfa
+    purgedups_splitfa_self_paf = PURGING.out.purgedups_splitfa_self_paf
+    purgedups_pbcstat_hist     = PURGING.out.purgedups_pbcstat_hist
+    purgedups_pbcstat_basecov  = PURGING.out.purgedups_pbcstat_basecov
+    purgedups_calcuts_cutoffs  = PURGING.out.purgedups_calcuts_cutoffs
+    purgedups_calcuts_log      = PURGING.out.purgedups_calcuts_log
+    purgedups_histplot         = PURGING.out.purgedups_histplot
+    purgedups_bed              = PURGING.out.purgedups_bed
+    purgedups_log              = PURGING.out.purgedups_log
+    primary_reads_paf          = PURGING.out.primary_reads_paf
+    asmstats                   = PURGING.out.asmstats
+    gfastats                   = PURGING.out.gfastats
+    busco_summary_txt          = PURGING.out.busco_summary_txt
+    busco_summary_json         = PURGING.out.busco_summary_json
+    busco_batch_summary        = PURGING.out.busco_batch_summary
+    busco_log                  = PURGING.out.busco_log
+    busco_directory            = PURGING.out.busco_directory
+    merqury_qv                 = PURGING.out.merqury_qv
+    merqury_completeness       = PURGING.out.merqury_completeness
+    merqury_phased_stats       = PURGING.out.merqury_phased_stats
+    merqury_images             = PURGING.out.merqury_images
+    versions                   = PURGING.out.versions
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +98,7 @@ workflow {
         params.help_full,
         params.show_hidden,
         params.primary,
-        params.alternative,
+        params.alternate,
         params.reads,
         params.fastk,
         params.genomescope_model,
@@ -105,7 +132,7 @@ workflow {
 
     publish:
     purged_primary             = SANGERTOL_PURGING.out.primary
-    purged_alternative         = SANGERTOL_PURGING.out.alternative
+    purged_alternate           = SANGERTOL_PURGING.out.alternate
     purged_haplotigs           = SANGERTOL_PURGING.out.haplotigs
 
     purgedups_pbcstat_hist     = SANGERTOL_PURGING.out.purgedups_pbcstat_hist
@@ -115,7 +142,6 @@ workflow {
     purgedups_histplot         = SANGERTOL_PURGING.out.purgedups_histplot
     primary_reads_paf          = SANGERTOL_PURGING.out.primary_reads_paf
 
-    purgedups_splitfa          = SANGERTOL_PURGING.out.purgedups_splitfa
     purgedups_splitfa_self_paf = SANGERTOL_PURGING.out.purgedups_splitfa_self_paf
 
     purgedups_bed              = SANGERTOL_PURGING.out.purgedups_bed
@@ -142,7 +168,7 @@ output {
     purged_primary {
         path '.'
     }
-    purged_alternative {
+    purged_alternate {
         path '.'
     }
     purged_haplotigs {
@@ -166,9 +192,6 @@ output {
     }
     purgedups_histplot {
         path 'coverage'
-    }
-    purgedups_splitfa {
-        path 'split_aln'
     }
     purgedups_splitfa_self_paf {
         path 'split_aln'
@@ -213,7 +236,7 @@ output {
         path 'asm.merquryfk'
     }
     versions {
-        path '.'
+        path 'pipeline_info/'
     }
 }
 

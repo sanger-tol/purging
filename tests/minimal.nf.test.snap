@@ -1,0 +1,51 @@
+{
+    "-profile test": {
+        "content": [
+            null,
+            [
+                "asm.htigs.all.fa.gz",
+                "asm.htigs.all.fa.gz.assembly_summary",
+                "asm.htigs.all.fa.gz.stats",
+                "asm.purged.fa.gz",
+                "asm.purged.fa.gz.assembly_summary",
+                "asm.purged.fa.gz.stats",
+                "coverage",
+                "coverage/asm.PB.base.cov",
+                "coverage/asm.PB.stat",
+                "coverage/asm.calcuts.log",
+                "coverage/asm.cutoffs",
+                "coverage/asm.png",
+                "pipeline_info",
+                "pipeline_info/purging_software_versions.yml",
+                "seqs",
+                "seqs/asm.hap.fa.gz",
+                "split_aln",
+                "split_aln/asm.dups.bed",
+                "split_aln/asm.purge_dups.log",
+                "split_aln/asm.self_aln.paf"
+            ],
+            [
+                "asm.htigs.all.fa.gz:md5,4b3743a31c8fe06429c3dc8f8c4d093e",
+                "asm.htigs.all.fa.gz.assembly_summary:md5,0ef7eeafe3dbf5352c2600734dcbb54e",
+                "asm.htigs.all.fa.gz.stats:md5,c8e9946b9f146ee12b041cc05077e6aa",
+                "asm.purged.fa.gz:md5,cbe7ac771a2bb3915c9d49d65181032d",
+                "asm.purged.fa.gz.assembly_summary:md5,09867c131edf7da938d777f894bb05ac",
+                "asm.purged.fa.gz.stats:md5,69ff7eed65e23b09c2dd35006a30ee72",
+                "asm.PB.base.cov:md5,7745654a8c63e8000fc5377f9be4a22a",
+                "asm.PB.stat:md5,bdf150cb4db8d8ffeb9e569bb38389f0",
+                "asm.calcuts.log:md5,b2b43a250c9a73fb82fa07b2cd2dfc41",
+                "asm.cutoffs:md5,d0f683811a36f043e45930147cf299ac",
+                "asm.png:md5,0fe3513fd7f29463cce2487d0046c5ac",
+                "asm.hap.fa.gz:md5,f120dfb4777b900bc06ac9992d2857df",
+                "asm.dups.bed:md5,f80d7aec0a3eb9975793fbde3eb1cb06",
+                "asm.purge_dups.log:md5,de03d47b764a023ce08af7fbbbf1c045",
+                "asm.self_aln.paf:md5,23041dbef85279ee83e1822cc56f96a5"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-12T15:59:59.716808"
+    }
+}
