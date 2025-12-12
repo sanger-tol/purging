@@ -20,6 +20,7 @@ lint:
   nextflow_config:
     - manifest.name
     - manifest.homePage
+    - params.input
   multiqc_config: false
   files_exist:
     - assets/multiqc_config.yml

@@ -33,12 +33,11 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - `purge_dups/`
   - `asm.dups.bed` - bed file describing duplications
   - `asm.purge_dups.log` - log file describing purging
-- `seqs/asm.hap.fa.gz` - the haplotigs purged from the assembly. 
+- `seqs/asm.hap.fa.gz` - the haplotigs purged from the assembly.
 
 </details>
 
 ### Genome statistics
-
 
 <details markdown="1">
 <summary>Output files</summary>
