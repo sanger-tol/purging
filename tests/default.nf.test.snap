@@ -1,0 +1,202 @@
+{
+    "-profile test": {
+        "content": [
+            {
+                "ASMSTATS": {
+                    "asmstats": "1.0.0",
+                    "seqtk": "1.5-r133"
+                },
+                "BGZIP_ASSEMBLIES": {
+                    "tabix": 1.21
+                },
+                "BUSCO_BUSCO": {
+                    "busco": "6.0.0"
+                },
+                "CONCATENATE_HAPLOTYPES": {
+                    "pigz": "2.3.4"
+                },
+                "FASTXALIGN_MINIMAP2ALIGN": {
+                    "slice_fasta.py": "1.0.0",
+                    "samtools": "1.22.1",
+                    "minimap2": "2.30-r1287"
+                },
+                "FASTXALIGN_PYFASTXINDEX": {
+                    "slice_fasta.py": "1.0.0"
+                },
+                "GFASTATS": {
+                    "gfastats": "1.3.10"
+                },
+                "GUNZIP": {
+                    "gunzip": 1.13
+                },
+                "MINIMAP2_ALIGN_ASSEMBLY": {
+                    "minimap2": "2.29-r1283",
+                    "samtools": 1.21
+                },
+                "MINIMAP2_INDEX": {
+                    "minimap2": "2.29-r1283"
+                },
+                "PURGEDUPS_CALCUTS": {
+                    "purgedups": "1.2.6"
+                },
+                "PURGEDUPS_GETSEQS": {
+                    "purgedups": "1.2.6"
+                },
+                "PURGEDUPS_HISTPLOT": {
+                    "purgedups": "1.2.6"
+                },
+                "PURGEDUPS_PBCSTAT": {
+                    "purgedups": "1.2.6"
+                },
+                "PURGEDUPS_PURGEDUPS": {
+                    "purgedups": "1.2.6"
+                },
+                "PURGEDUPS_SPLITFA": {
+                    "purgedups": "1.2.6"
+                },
+                "Workflow": {
+                    "sanger-tol/purging": "v1.0.0dev"
+                }
+            },
+            [
+                "asm.busco.bacteria_odb12",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco.batch_summary.txt",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/logs",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/logs/hmmsearch_err.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/logs/hmmsearch_out.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/logs/prodigal_err.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/logs/prodigal_out.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/prodigal_output",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/prodigal_output/.checkpoint",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/prodigal_output/predicted_genes",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/prodigal_output/predicted_genes/predicted.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/prodigal_output/predicted_genes/predicted.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/fragmented_busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/multi_copy_busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802309at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802309at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9811804at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9811804at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/full_table.tsv",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/missing_busco_list.tsv",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/short_summary.json",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.htigs.all.fa/run_bacteria_odb12/short_summary.txt",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs/bbtools_err.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs/bbtools_out.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs/hmmsearch_err.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs/hmmsearch_out.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs/prodigal_err.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/logs/prodigal_out.log",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/prodigal_output",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/prodigal_output/.checkpoint",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/prodigal_output/predicted_genes",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/prodigal_output/predicted_genes/predicted.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/prodigal_output/predicted_genes/predicted.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/fragmented_busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/fragmented_busco_sequences/9782003at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/fragmented_busco_sequences/9782003at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/fragmented_busco_sequences/9805455at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/fragmented_busco_sequences/9805455at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/multi_copy_busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/5293449at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/5293449at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9799262at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9799262at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9800719at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9800719at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9801213at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9801213at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802065at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802065at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802304at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802304at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802309at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9802309at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9804305at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9804305at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9804478at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9804478at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9806014at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9806014at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9806651at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9806651at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9807233at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9807233at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9808773at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9808773at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9808966at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9808966at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9809356at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9809356at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9810191at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9810191at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9811804at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9811804at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9812769at2.faa",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/busco_sequences/single_copy_busco_sequences/9812769at2.fna",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/full_table.tsv",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/missing_busco_list.tsv",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/short_summary.json",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/asm.purged.fa/run_bacteria_odb12/short_summary.txt",
+                "asm.busco.bacteria_odb12/asm-bacteria_odb12-busco/logs",
+                "asm.busco.bacteria_odb12/short_summary.specific.bacteria_odb12.asm.htigs.all.fa.json",
+                "asm.busco.bacteria_odb12/short_summary.specific.bacteria_odb12.asm.htigs.all.fa.txt",
+                "asm.busco.bacteria_odb12/short_summary.specific.bacteria_odb12.asm.purged.fa.json",
+                "asm.busco.bacteria_odb12/short_summary.specific.bacteria_odb12.asm.purged.fa.txt",
+                "asm.htigs.all.fa.gz",
+                "asm.htigs.all.fa.gz.assembly_summary",
+                "asm.htigs.all.fa.gz.stats",
+                "asm.purged.fa.gz",
+                "asm.purged.fa.gz.assembly_summary",
+                "asm.purged.fa.gz.stats",
+                "coverage",
+                "coverage/asm.PB.base.cov",
+                "coverage/asm.PB.stat",
+                "coverage/asm.calcuts.log",
+                "coverage/asm.cutoffs",
+                "coverage/asm.png",
+                "pipeline_info",
+                "pipeline_info/purging_software_versions.yml",
+                "seqs",
+                "seqs/asm.hap.fa.gz",
+                "split_aln",
+                "split_aln/asm.dups.bed",
+                "split_aln/asm.purge_dups.log",
+                "split_aln/asm.self_aln.paf"
+            ],
+            [
+                "asm.htigs.all.fa.gz:md5,cbe42adbcd1c195eff2f47a25e36856b",
+                "asm.htigs.all.fa.gz.assembly_summary:md5,4a422eac27b0d55b0d467d0e59dd3b6f",
+                "asm.htigs.all.fa.gz.stats:md5,ca06f7d8a637616643fae17833d2bdb1",
+                "asm.purged.fa.gz:md5,3468a73b6b13c05965c10b7eefc7654f",
+                "asm.purged.fa.gz.assembly_summary:md5,b274a1cb2ca79dc7e3bba2c743bcc2a2",
+                "asm.purged.fa.gz.stats:md5,87cbdeb7afc37a4eae6df3f57b47655b",
+                "asm.PB.base.cov:md5,91fb77c5c3b53732f20971dddfe5266e",
+                "asm.PB.stat:md5,c0694afd413c040d5e01b73480309690",
+                "asm.calcuts.log:md5,b2b43a250c9a73fb82fa07b2cd2dfc41",
+                "asm.cutoffs:md5,d0f683811a36f043e45930147cf299ac",
+                "asm.png:md5,cd804892c32fb948a54563a05101a887",
+                "asm.hap.fa.gz:md5,3ff71e486f5c982b01ce2276916d5259",
+                "asm.dups.bed:md5,1a05359a5687ed23c44889b1a919c5c6",
+                "asm.purge_dups.log:md5,02a78fc3b03eeca5209c6ee8488e49c0",
+                "asm.self_aln.paf:md5,23041dbef85279ee83e1822cc56f96a5"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.0"
+        },
+        "timestamp": "2025-12-12T16:39:52.558284"
+    }
+}

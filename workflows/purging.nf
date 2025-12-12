@@ -7,6 +7,7 @@ include { paramsSummaryMap                } from 'plugin/nf-schema'
 include { softwareVersionsToYAML          } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText          } from '../subworkflows/local/utils_nfcore_purging_pipeline'
 
+include { GUNZIP                          } from '../modules/nf-core/gunzip/main'
 include { TABIX_BGZIP as BGZIP_ASSEMBLIES } from '../modules/nf-core/tabix/bgzip/main'
 
 include { FASTA_PURGE_RETAINED_HAPLOTYPE  } from '../subworkflows/sanger-tol/fasta_purge_retained_haplotype/main'
@@ -32,10 +33,37 @@ workflow PURGING {
     ch_versions = channel.empty()
 
     //
+    // Module: Unzip assemblies if gzipped so we only operate on unzipped asms
+    //
+    ch_assemblies_to_gunzip = ch_assembly
+        .flatMap { meta, pri, alt ->
+            [[meta + [_hap: "pri"], pri], [meta + [_hap: "alt"], alt]]
+        }
+        .branch { _meta, asm ->
+            unzip: asm.getExtension() == "gz"
+            asis: true
+        }
+
+    GUNZIP(ch_assemblies_to_gunzip.unzip)
+    ch_versions = ch_versions.mix(GUNZIP.out.versions)
+
+    ch_unzipped_assemblies_split = GUNZIP.out.gunzip
+        .mix(ch_assemblies_to_gunzip.asis)
+        .branch { meta, asm ->
+            pri: meta._hap == "pri"
+                return [ meta - meta.subMap("_hap"), asm ]
+            alt: meta._hap == "alt"
+                return [ meta - meta.subMap("_hap"), asm ]
+        }
+
+    ch_unzipped_assemblies = ch_unzipped_assemblies_split.pri
+        .join(ch_unzipped_assemblies_split.alt)
+
+    //
     // Subworkflow: purge retained haplotype from primary assembly
     //
     FASTA_PURGE_RETAINED_HAPLOTYPE(
-        ch_assembly,
+        ch_unzipped_assemblies,
         ch_reads,
         val_reads_per_chunk
     )
