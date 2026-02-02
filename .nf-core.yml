@@ -1,8 +1,15 @@
-repository_type: pipeline
-
-nf_core_version: 3.5.1
-
 lint:
+  files_exist:
+    - assets/multiqc_config.yml
+    - CODE_OF_CONDUCT.md
+    - assets/nf-core-purging_logo_light.png
+    - docs/images/nf-core-purging_logo_light.png
+    - docs/images/nf-core-purging_logo_dark.png
+    - .github/ISSUE_TEMPLATE/config.yml
+    - .github/workflows/awstest.yml
+    - .github/workflows/awsfulltest.yml
+    - conf/igenomes.config
+    - conf/igenomes_ignored.config
   files_unchanged:
     - .github/CONTRIBUTING.md
     - assets/sendmail_template.txt
@@ -15,33 +22,23 @@ lint:
     - .github/PULL_REQUEST_TEMPLATE.md
     - assets/email_template.txt
     - docs/README.md
+  multiqc_config: false
   nextflow_config:
     - manifest.name
     - manifest.homePage
-  multiqc_config: false
-  files_exist:
-    - assets/multiqc_config.yml
-    - CODE_OF_CONDUCT.md
-    - assets/nf-core-purging_logo_light.png
-    - docs/images/nf-core-purging_logo_light.png
-    - docs/images/nf-core-purging_logo_dark.png
-    - .github/ISSUE_TEMPLATE/config.yml
-    - .github/workflows/awstest.yml
-    - .github/workflows/awsfulltest.yml
-    - conf/igenomes.config
-    - conf/igenomes_ignored.config
-
+nf_core_version: 3.5.2
+repository_type: pipeline
 template:
-  org: sanger-tol
-  name: purging
+  author: "@prototaxites"
   description: A pipeline for purging retained haplotypic duplication from a genomea
     assembly.
-  author: '@prototaxites'
-  version: 1.0.0dev
-  force: true
+  force: false
+  is_nfcore: false
+  name: purging
+  org: sanger-tol
   outdir: .
   skip_features:
     - igenomes
     - multiqc
     - fastqc
-  is_nfcore: false
+  version: 1.0.0dev
